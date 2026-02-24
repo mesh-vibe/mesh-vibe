@@ -37,6 +37,7 @@ Shared infrastructure:
 | [newsbot](https://github.com/MeshVibe/newsbot) | Personal news aggregation from RSS + browser history | `newsbot` | `~/newsbot/` | Stable |
 | [securitybot](https://github.com/MeshVibe/securitybot) | Autonomous security scanning and threat detection | `securitybot` | `~/securitybot/` | Planned |
 | [costbot](https://github.com/MeshVibe/costbot) | API spend monitoring and anomaly detection | `costbot` | `~/costbot/` | Planned |
+| [sysadminbot](https://github.com/MeshVibe/sysadminbot) | Autonomous service supervisor that keeps everything running | `sysadminbot` | `~/sysadminbot/` | Planned |
 
 ### Interfaces
 

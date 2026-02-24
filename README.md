@@ -43,6 +43,7 @@ Shared infrastructure:
 | [securitybot](https://github.com/MeshVibe/securitybot) | Autonomous security scanning and threat detection | `securitybot` | `~/mesh-vibe/data/securitybot/` | Planned |
 | [costbot](https://github.com/MeshVibe/costbot) | API spend monitoring and anomaly detection | `costbot` | `~/mesh-vibe/data/costbot/` | Planned |
 | [sysadminbot](https://github.com/MeshVibe/sysadminbot) | Autonomous service supervisor | `sysadminbot` | `~/mesh-vibe/data/sysadminbot/` | Planned |
+| [standardsbot](https://github.com/MeshVibe/standardsbot) | Convention enforcement against MeshVibe standards | `standardsbot` | `~/mesh-vibe/data/standardsbot/` | Planned |
 
 ### Interfaces
 

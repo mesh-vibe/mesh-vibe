@@ -10,7 +10,7 @@ mesh-vibe is conventions, not a framework. Every tool follows the same shape:
 
 ```
 ~/IdeaProjects/mesh-vibe/<project>/   # source code (each project is its own git repo)
-~/mesh-vibe/data/<project>/           # runtime data, reports, state
+~/mesh-vibe/<project>/                # runtime data, reports, state (flat, one dir per service)
 ~/mesh-vibe/heartbeat/                # scheduled task configs
 ```
 
@@ -49,12 +49,12 @@ All source lives under `~/IdeaProjects/mesh-vibe/` in the [mesh-vibe](https://gi
 
 | Bot | Schedule | Description | Data Dir |
 |-----|----------|-------------|----------|
-| command-center | every beat | System health dashboard, STATUS.md + status.html | — |
-| prompt-queue | every beat | Processes queued prompts | `~/mesh-vibe/data/prompt-queue/` |
+| command-center | every 2 hours | System health dashboard, STATUS.md + status.html | `~/mesh-vibe/command-center/` |
+| prompt-queue | every beat | Processes queued prompts | `~/mesh-vibe/prompt-queue/` |
 | prompt-supervisor | every beat | Monitors multi-step projects for stuck progress | — |
-| security-scan-bot | daily at 04:00 | Security scanning and threat detection | `~/mesh-vibe/data/security-bot/` |
-| standard-scan-bot | daily at 04:30 | Convention enforcement | `~/mesh-vibe/data/standards-bot/` |
-| news-bot | daily at 05:00 | News digest from RSS + browser history | `~/mesh-vibe/data/news-bot/` |
+| security-scan-bot | daily at 04:00 | Security scanning and threat detection | `~/mesh-vibe/security-bot/` |
+| standard-scan-bot | daily at 04:30 | Convention enforcement | `~/mesh-vibe/standards-bot/` |
+| news-bot | daily at 05:00 | News digest from RSS + browser history | `~/mesh-vibe/news-bot/` |
 | portuguese-tutor-bot | daily at 08:00 | Portuguese language lessons | `~/mesh-vibe/portuguese-tutor/` |
 | claudes-sandbox | daily at 05:00 | Creative sandbox | `~/mesh-vibe/claudes-sandbox/` |
 
@@ -107,19 +107,21 @@ project-name/
 ├── CLAUDE.md                         # loaded in every Claude session
 ├── STATUS.md                         # live system health (updated every beat)
 ├── status.html                       # HTML dashboard (updated every beat)
-├── data/
-│   ├── news-bot/                     # runtime data per service
-│   ├── security-bot/
-│   ├── standards-bot/
-│   ├── prompt-queue/
-│   │   ├── queue.md                  # pending prompts
-│   │   └── projects/                 # multi-step project trackers
-│   ├── voice-vibe/
-│   ├── remote-companion/
-│   └── event-log/
-└── heartbeat/                        # scheduled task configs
-    ├── config.md                     # global heartbeat settings
-    └── *.md                          # individual task files
+├── heartbeat/                        # scheduled task configs
+│   ├── config.md                     # global heartbeat settings
+│   └── *.md                          # individual task files
+├── news-bot/                         # runtime data per service (flat, one dir each)
+├── security-bot/
+├── standards-bot/
+├── prompt-queue/
+│   ├── queue.md                      # pending prompts
+│   └── projects/                     # multi-step project trackers
+├── voice-vibe/
+├── remote-companion/
+├── event-log/
+├── vibe-flow/                        # SDLC pipeline projects
+│   └── flows/<flow-name>/active/     # projects organized by flow type
+└── graveyard/                        # retired services
 ```
 
 ### Secrets
@@ -179,7 +181,7 @@ prompt-queue status                     # queue health
 ```
 
 ### Multi-step projects
-For work that spans multiple heartbeat beats, prompts can create project trackers at `~/mesh-vibe/data/prompt-queue/projects/<name>.md`. Each step queues the next via `prompt-queue add`. The prompt-supervisor heartbeat task monitors active projects and re-queues stuck steps.
+For work that spans multiple heartbeat beats, prompts can create project trackers at `~/mesh-vibe/prompt-queue/projects/<name>.md`. Each step queues the next via `prompt-queue add`. The prompt-supervisor heartbeat task monitors active projects and re-queues stuck steps.
 
 ## Security Model
 
@@ -200,7 +202,7 @@ Every project has a `manifest.md` in its root. This is how the registry discover
 name: project-name
 description: One-line description
 cli: cli-name
-data_dir: ~/mesh-vibe/data/project-name
+data_dir: ~/mesh-vibe/project-name
 version: 0.1.0
 health_check: cli-name status
 depends_on:
